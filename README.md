@@ -2,7 +2,7 @@
 KOSTA 2021-1 Class Resource
 2021-03-02 IoT Class daily report
 ### C 언어 1강
-출력형식, byte
+출력형식, data type 별 byte 
 
 ```
 #include <stdio.h> 
