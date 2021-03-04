@@ -73,16 +73,7 @@ int main(void){
 ```
 #include <stdio.h>
 #include <conio.h>
-#include "MyHeader.h"
 char buf[10000];
-void ConvertChr(char buf[]){
-	int i, j, k;
-	for(i=0; buf[i]; i++){
-		if(buf[i]>96&&buf[i]<123) buf[i]-=32;
-		printf("%c ", buf[i]);
-	}
-	printf("\n");
-}
 void printlocation(int x){
 	x=x-48;
 	printf("%s (%d)  --> %c \n\n", buf, x, *(buf+x));
