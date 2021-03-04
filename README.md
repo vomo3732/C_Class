@@ -2,7 +2,9 @@
 KOSTA 2021-1 Class Resource
 2021-03-02 IoT Class daily report
 ### C 언어 1강
-출력형식, data type 별 byte 
+
+#### 03/02 
+출력형식, 데이터 타입별 byte 
 
 ```
 #include <stdio.h> 
@@ -19,6 +21,7 @@ int main(){
 }
 ```
 
+#### 03/03 
 switch-case문에 대한 내용
 
 ```
@@ -68,7 +71,8 @@ int main(void){
 }
 ```
 
-03/04 getch() 함수와 배열에 대한 내용
+#### 03/04 
+getch() 함수와 배열에 대한 내용
 
 ```
 #include <stdio.h>
