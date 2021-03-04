@@ -6,7 +6,6 @@ KOSTA 2021-1 Class Resource
 
 ```
 #include <stdio.h> 
-
 int main(){
 	printf("실수의 출력: %f %f\n\n", 3.14159265, 456.7891230);
 	printf("실수의 출력: %8.2f %10.3f\n\n", 3.14159265, 456.7891230);
@@ -24,9 +23,7 @@ switch-case문에 대한 내용
 
 ```
 #include <stdio.h>
-
 int main(void){
-	
 	while(1){
 		int a;
 		printf("숫자키를 누르세요. 끝내시려면 '0'키를 누르세요 ");
@@ -66,9 +63,7 @@ int main(void){
 				break; 
 		}
 		printf("\n");
-		
 	}
-
 	return 0;
 }
 ```
@@ -76,12 +71,10 @@ int main(void){
 03/04 getch() 함수와 배열에 대한 내용
 
 ```
-
 #include <stdio.h>
 #include <conio.h>
 #include "MyHeader.h"
 char buf[10000];
-
 void ConvertChr(char buf[]){
 	int i, j, k;
 	for(i=0; buf[i]; i++){
@@ -90,27 +83,19 @@ void ConvertChr(char buf[]){
 	}
 	printf("\n");
 }
-
 void printlocation(int x){
 	x=x-48;
 	printf("%s (%d)  --> %c \n\n", buf, x, *(buf+x));
-	
-
 }
 
 int main(){
-	
-
 	scanf("%s", &buf);//enter 키를 눌러서 값을 되돌림 
 	printf("입력 문자열은 %s 입니다\n\n\n\n", buf);
-	
 	while(1){	
 		int ch=getch();//단일 키값을 되돌림.
 		if(ch<48||ch>57) break;
 		printlocation(ch);
 	}
-
 	return 0;
 }
-
 ```
