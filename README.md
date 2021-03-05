@@ -94,3 +94,63 @@ int main(){
 	return 0;
 }
 ```
+
+#### 03/05
+함수와 포인터를 사용해서 최대공약수를 구하는 내용
+```
+#include <stdio.h>
+
+int GetCD(int num, int *arr){
+   int i,j,k;
+   for(i=1,j=0;i<=num;i++){
+      if(num%i == 0){
+         *(arr+j) = i;
+         j++;
+         // *arr++=i; 
+      }
+   }
+   return j;
+}
+
+int GetGCD(int *arr1, int n1, int *arr2, int n2){
+   int i,j,k;
+   for(i=n1-1;i>=0;i--){ //for(i=0;i<n1;i++)
+      for(j=0;j<n2;j++){
+         if(*(arr1+i) == *(arr2+j)) return *(arr1+i);
+      }
+   }
+   return -1; //error발생 고려 
+}
+
+int GetGCD2(int n1, int n2){   
+   for(int i=n1;i>0;i--){
+      if(n1%i == 0 && n2%1 == 0) return i;
+   }   
+}
+
+int main(){
+   int num1, num2;
+   int n1, n2, MaxNum;
+   int arr1[100],arr2[100];
+   
+   printf("2개의 숫자를 입력하세요.\n");
+   scanf("%d %d",&num1,&num2);
+   
+   n1 = GetCD(num1, arr1); // n1 : 1st 수의 약수 갯수 
+   n2 = GetCD(num2, arr2); // n2 : 2st 수의 약수 갯수 
+   
+   MaxNum = GetGCD(arr1,n1,arr2,n2);
+   
+   // num1의 약수와 num2의 약수 출력 
+   printf("%d의 약수 : ", num1);
+   for(int i=0;i<n1;i++){
+      printf("%d ",arr1[i]);
+   }
+   printf("\n%d의 약수 : ", num2);
+   for(int i=0;i<n2;i++){
+      printf("%d ",arr2[i]);
+   }
+   printf("\n\n%d와 %d의 최대공약수는 %d입니다.\n", num1, num2, MaxNum);
+   return 0;
+} 
+```
