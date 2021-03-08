@@ -160,7 +160,6 @@ strncmp를 활용한 함수를 통해 한 문자열에서 다른 문자열이 �
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "myHeader.h" 
 
 int chrPos(char *str, char chr); 
 int strPos(char *str, char *s1);
@@ -170,7 +169,6 @@ int main(){
 	char *s1="acdb";
 	printf("문자열 : %s\n", str);
 	printf("%c의 위치는 %d입니다\n", 'e', chrPos(str, 'e'));//4
-	printf("%c의 위치는 %d입니다\n", 'o', chrPos(str, 'o'));//-1 
 	printf("%s의 위치는 %d입니다\n",s1, strPos(str, s1));
 	
 }
