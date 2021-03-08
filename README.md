@@ -155,7 +155,7 @@ int main(){
 } 
 ```
 #### 03/08
-fgets와 atoi함수를 이용한 문자열의 위치 찾기
+strncmp를 활용하여 함수를  문자열의 위치 찾기
 ```
 #include <stdio.h>
 #include <string.h>
