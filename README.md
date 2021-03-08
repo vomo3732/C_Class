@@ -155,7 +155,7 @@ int main(){
 } 
 ```
 #### 03/08
-strncmp를 활용하여 함수를  문자열의 위치 찾기
+strncmp를 활용한 함수를 통해 한 문자열에서 다른 문자열이 존재하는 위치 찾기
 ```
 #include <stdio.h>
 #include <string.h>
