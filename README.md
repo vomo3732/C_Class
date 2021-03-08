@@ -154,3 +154,65 @@ int main(){
    return 0;
 } 
 ```
+#### 03/08
+fgets와 atoi함수를 이용한 문자열의 위치 찾기
+```
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "myHeader.h" 
+
+int chrPos(char *str, char chr); 
+int strPos(char *str, char *s1);
+
+int main(){
+	char *str="abcdefgacdbhijklmn";
+	char *s1="acdb";
+	printf("문자열 : %s\n", str);
+	printf("%c의 위치는 %d입니다\n", 'e', chrPos(str, 'e'));//4
+	printf("%c의 위치는 %d입니다\n", 'o', chrPos(str, 'o'));//-1 
+	printf("%s의 위치는 %d입니다\n",s1, strPos(str, s1));
+	
+}
+
+int chrPos(char *str, char chr){
+	int i, j, k;
+	i=0;
+	
+	for(i; *(str+i); i++){
+		if(*(str+i)==chr) return i;
+	}
+	return -1;
+}
+
+int strPos(char *str, char *s1){
+	int i, j, k;
+	int p=1;
+	for(i=0; *(str+i); i+=p+1){
+		p=chrPos(str+i, *s1);
+		if(strncmp(str+p+i, s1, strlen(s1))==0){
+			return p+i;
+		}
+	}
+	return -1;
+}
+
+//함수의 정의:
+//함수명: int chrPos(char *str, char chr);
+//return type: int: chr 문자의 위 치, 없다면 -1 
+//input: char *str: 대상 문자열 
+//		char chr: 찾을 문자 
+//기능: str로 전달된 문자열중에서 chr문자를 검색하여 해당 위치를 반환(zero base) 검색되지 않으면 -1을 반환 
+
+//함수의 정의:
+//함수명: int strPos(char *str, char *s1);
+//return type: int: s1 문자의 위 치, 없다면 -1 
+//input: char *str: 대상 문자열 
+//		char *s1: 찾을 문자 
+//기능: str로 전달된 문자열중에서 s1 문자열을 검색하여 해당 위치를 반환(zero base) 검색되지 않으면 -1을 반환 
+//===로직 구현 ================================================ 
+//1. str에서 s1의 첫 문자가 있는 위치를 검색
+//2. 해당 위치에서 strncmp를 이용하여 비교/ 같으면 return i, 아니면 다시 1번 
+//3. 만일 끝까지 없으면 -1
+```
+
