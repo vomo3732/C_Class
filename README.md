@@ -213,4 +213,32 @@ int strPos(char *str, char *s1){
 //2. 해당 위치에서 strncmp를 이용하여 비교/ 같으면 return i, 아니면 다시 1번 
 //3. 만일 끝까지 없으면 -1
 ```
-
+#### 03/09
+텍스트 파일을 이용해서 freopen, fprintf, fscanf와 malloc에 대한 내용
+```
+#include <stdio.h>
+#include <io.h>
+#include <malloc.h>
+#define PNUM 100
+int main(){
+	int i, j, k;
+	int *eng, *kor, *san;
+	
+	eng=(int*)malloc(PNUM*sizeof(int));
+	kor=(int*)malloc(PNUM*sizeof(int));
+	san=(int*)malloc(PNUM*sizeof(int));
+	
+	FILE *fp=fopen("C:\\Users\\Owner\\Desktop\\AA\\test.txt", "rb");
+	
+	for(i=0; i<PNUM; i++){
+		k= fscanf(fp, "%d %d %d", kor+i, eng+i, san+i);
+		if(k!=3) break;
+		//for문 종료되었을 때의 i값은 무엇을 가리키나요? : 데이터의 갯수 
+	}
+	int n=i;
+	for(i=0; i<n; i++){
+		printf("%d   %d   %d \n", *(kor+i), *(eng+i), *(san+i));
+	}
+	fclose(fp);
+}
+```
