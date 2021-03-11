@@ -243,7 +243,7 @@ int main(){
 }
 ```
 #### 03/11
-getch()를 이용하여 피아노처럼 구현한 내용
+getch()를 이용하여 사용자가 입력한 숫자에 따라 '|'를 출력하는 위치를 변경하는 
 ```
 #include <stdio.h>
 #include <conio.h>
