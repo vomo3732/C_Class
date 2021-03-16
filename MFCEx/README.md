@@ -89,6 +89,11 @@ void CTestDLG::OnBnClickedButton1()
 }
 ```
 
+
+
+
+
+
 #### 03/16
 MFC를 활용하여 마우스가 위치한 좌표에 따라 원 그리기 (파일읽어오기-CDlgRev.cpp, CDlgTest.cpp)
 
