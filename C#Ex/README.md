@@ -110,7 +110,7 @@ namespace WindowsFormsEdit
   
   
   
-   사용한 myLib내용
+   사용한 *myLib.cs* 파일 
   ```
   namespace myLibrary
 {
