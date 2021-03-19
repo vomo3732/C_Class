@@ -1,5 +1,5 @@
 ﻿
-namespace WindowsFormsEdit
+namespace WindowsFormsGraph
 {
     partial class Form1
     {
@@ -29,161 +29,92 @@ namespace WindowsFormsEdit
         /// </summary>
         private void InitializeComponent()
         {
-            this.tbMemo = new System.Windows.Forms.TextBox();
-            this.mnuMain = new System.Windows.Forms.MenuStrip();
-            this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuFileNew = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuFileSave = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuView = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.mnuViewFont = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusBar = new System.Windows.Forms.StatusStrip();
-            this.sbLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.sbLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.mnuViewChline = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuMain.SuspendLayout();
-            this.statusBar.SuspendLayout();
+            this.components = new System.ComponentModel.Container();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuDraw = new System.Windows.Forms.ToolStripMenuItem();
+            this.CanvasDraw = new System.Windows.Forms.PictureBox();
+            this.mnuErase = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuThick = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CanvasDraw)).BeginInit();
             this.SuspendLayout();
             // 
-            // tbMemo
+            // statusStrip1
             // 
-            this.tbMemo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 468);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(726, 22);
+            this.statusStrip1.TabIndex = 0;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(20, 17);
+            this.toolStripStatusLabel1.Text = "-.-";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuDraw,
+            this.mnuErase,
+            this.mnuThick});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            // 
+            // mnuDraw
+            // 
+            this.mnuDraw.Name = "mnuDraw";
+            this.mnuDraw.Size = new System.Drawing.Size(180, 22);
+            this.mnuDraw.Text = "그리기";
+            this.mnuDraw.Click += new System.EventHandler(this.mnuDraw_Click);
+            // 
+            // CanvasDraw
+            // 
+            this.CanvasDraw.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbMemo.Location = new System.Drawing.Point(-9, 27);
-            this.tbMemo.Multiline = true;
-            this.tbMemo.Name = "tbMemo";
-            this.tbMemo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbMemo.Size = new System.Drawing.Size(1315, 483);
-            this.tbMemo.TabIndex = 1;
-            this.tbMemo.TextChanged += new System.EventHandler(this.tbMemo_TextChanged);
+            this.CanvasDraw.ContextMenuStrip = this.contextMenuStrip1;
+            this.CanvasDraw.Location = new System.Drawing.Point(0, 0);
+            this.CanvasDraw.Name = "CanvasDraw";
+            this.CanvasDraw.Size = new System.Drawing.Size(726, 465);
+            this.CanvasDraw.TabIndex = 1;
+            this.CanvasDraw.TabStop = false;
+            this.CanvasDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CanvasDraw_MouseDown);
+            this.CanvasDraw.Resize += new System.EventHandler(this.CanvasDraw_Resize);
             // 
-            // mnuMain
+            // mnuErase
             // 
-            this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile,
-            this.editToolStripMenuItem,
-            this.mnuView,
-            this.helpToolStripMenuItem});
-            this.mnuMain.Location = new System.Drawing.Point(0, 0);
-            this.mnuMain.Name = "mnuMain";
-            this.mnuMain.Size = new System.Drawing.Size(1306, 24);
-            this.mnuMain.TabIndex = 3;
-            this.mnuMain.Text = "menuStrip2";
+            this.mnuErase.Name = "mnuErase";
+            this.mnuErase.Size = new System.Drawing.Size(180, 22);
+            this.mnuErase.Text = "모두 지우기";
+            this.mnuErase.Click += new System.EventHandler(this.mnuErase_Click);
             // 
-            // mnuFile
+            // mnuThick
             // 
-            this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFileNew,
-            this.mnuFileOpen,
-            this.mnuFileSave});
-            this.mnuFile.Name = "mnuFile";
-            this.mnuFile.Size = new System.Drawing.Size(37, 20);
-            this.mnuFile.Text = "File";
-            // 
-            // mnuFileNew
-            // 
-            this.mnuFileNew.Name = "mnuFileNew";
-            this.mnuFileNew.Size = new System.Drawing.Size(180, 22);
-            this.mnuFileNew.Text = "New";
-            // 
-            // mnuFileOpen
-            // 
-            this.mnuFileOpen.Name = "mnuFileOpen";
-            this.mnuFileOpen.Size = new System.Drawing.Size(180, 22);
-            this.mnuFileOpen.Text = "Open";
-            this.mnuFileOpen.Click += new System.EventHandler(this.mnuFileOpen_Click);
-            // 
-            // mnuFileSave
-            // 
-            this.mnuFileSave.Name = "mnuFileSave";
-            this.mnuFileSave.Size = new System.Drawing.Size(180, 22);
-            this.mnuFileSave.Text = "Save";
-            this.mnuFileSave.Click += new System.EventHandler(this.mnuFileSave_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "Edit";
-            // 
-            // mnuView
-            // 
-            this.mnuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuViewFont,
-            this.mnuViewChline});
-            this.mnuView.Name = "mnuView";
-            this.mnuView.Size = new System.Drawing.Size(45, 20);
-            this.mnuView.Text = "View";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // mnuViewFont
-            // 
-            this.mnuViewFont.Name = "mnuViewFont";
-            this.mnuViewFont.Size = new System.Drawing.Size(180, 22);
-            this.mnuViewFont.Text = "Font";
-            this.mnuViewFont.Click += new System.EventHandler(this.mnuViewFont_Click);
-            // 
-            // statusBar
-            // 
-            this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sbLabel1,
-            this.sbLabel2});
-            this.statusBar.Location = new System.Drawing.Point(0, 513);
-            this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(1306, 22);
-            this.statusBar.TabIndex = 4;
-            this.statusBar.Text = "statusStrip1";
-            // 
-            // sbLabel1
-            // 
-            this.sbLabel1.Name = "sbLabel1";
-            this.sbLabel1.Size = new System.Drawing.Size(54, 17);
-            this.sbLabel1.Text = "sbLabel1";
-            // 
-            // sbLabel2
-            // 
-            this.sbLabel2.Name = "sbLabel2";
-            this.sbLabel2.Size = new System.Drawing.Size(54, 17);
-            this.sbLabel2.Text = "sbLabel2";
-            // 
-            // mnuViewChline
-            // 
-            this.mnuViewChline.Name = "mnuViewChline";
-            this.mnuViewChline.Size = new System.Drawing.Size(180, 22);
-            this.mnuViewChline.Text = "리셋하기";
-            this.mnuViewChline.Click += new System.EventHandler(this.mnuViewChline_Click);
+            this.mnuThick.Name = "mnuThick";
+            this.mnuThick.Size = new System.Drawing.Size(180, 22);
+            this.mnuThick.Text = "선의 두께 지정";
+            this.mnuThick.Click += new System.EventHandler(this.mnuThick_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1306, 535);
-            this.Controls.Add(this.statusBar);
-            this.Controls.Add(this.tbMemo);
-            this.Controls.Add(this.mnuMain);
+            this.ClientSize = new System.Drawing.Size(726, 490);
+            this.Controls.Add(this.CanvasDraw);
+            this.Controls.Add(this.statusStrip1);
             this.Name = "Form1";
-            this.Text = "YourEditor";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.mnuMain.ResumeLayout(false);
-            this.mnuMain.PerformLayout();
-            this.statusBar.ResumeLayout(false);
-            this.statusBar.PerformLayout();
+            this.Text = "그림판";
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.CanvasDraw)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,23 +122,13 @@ namespace WindowsFormsEdit
 
         #endregion
 
-        private System.Windows.Forms.TextBox tbMemo;
-        private System.Windows.Forms.MenuStrip mnuMain;
-        private System.Windows.Forms.ToolStripMenuItem mnuFile;
-        private System.Windows.Forms.ToolStripMenuItem mnuFileNew;
-        private System.Windows.Forms.ToolStripMenuItem mnuFileOpen;
-        private System.Windows.Forms.ToolStripMenuItem mnuFileSave;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mnuView;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.FontDialog fontDialog1;
-        private System.Windows.Forms.ToolStripMenuItem mnuViewFont;
-        private System.Windows.Forms.StatusStrip statusBar;
-        private System.Windows.Forms.ToolStripStatusLabel sbLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel sbLabel2;
-        private System.Windows.Forms.ToolStripMenuItem mnuViewChline;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem mnuDraw;
+        private System.Windows.Forms.PictureBox CanvasDraw;
+        private System.Windows.Forms.ToolStripMenuItem mnuErase;
+        private System.Windows.Forms.ToolStripMenuItem mnuThick;
     }
 }
 
