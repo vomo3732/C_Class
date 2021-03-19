@@ -135,3 +135,120 @@ namespace WindowsFormsEdit
 }
   ```
   
+
+
+
+#### 03/19
+picture box를 활용해 마우스의 위치에 따라 원을 출력하고 Thick.cs를 통해서 원을 그릴 때 선의 두께와 x값, y값을 지정해서 그리게 했음.
+
+
+Form1.cs내용
+```
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsGraph
+{
+    public partial class Form1 : Form
+    {
+        Graphics GDC;
+
+        public Form1()
+        {
+            InitializeComponent();
+            GDC = CanvasDraw.CreateGraphics();
+        }
+
+        private void mnuDraw_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void CanvasDraw_Paint(object sender, PaintEventArgs e)
+        {
+            //Pen pp=new Pen(Color.Red, 10);
+            //e.Graphics.DrawEllipse(pp, 100, 100, 200, 200);
+        }
+        int thick = 2;
+        int row = 10;
+        int col = 10;
+        private void CanvasDraw_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Pen pp=new Pen(Color.Black, thick);
+                GDC.DrawEllipse(pp, e.X, e.Y, row, col);
+            }
+        }
+
+        private void CanvasDraw_Resize(object sender, EventArgs e)
+        {
+            GDC = CanvasDraw.CreateGraphics();
+        }
+
+        private void mnuErase_Click(object sender, EventArgs e)
+        {
+            GDC.Clear(DefaultBackColor);
+        }
+
+        private void mnuThick_Click(object sender, EventArgs e)
+        {
+            Thick dlg = new Thick();
+            DialogResult ret = dlg.ShowDialog();
+            if (ret == DialogResult.OK)
+            {
+                string circlethickness = dlg.Circlethick;
+                string circlewidth = dlg.Circlerow;
+                string circlehigh = dlg.Circlecol;
+                thick = int.Parse(circlethickness);
+                row = int.Parse(circlewidth);
+                col = int.Parse(circlehigh);
+            }
+        }
+    }
+}
+
+```
+
+Thick.cs 내용
+```
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsGraph
+{
+
+    
+    public partial class Thick : Form
+    {
+        public string Circlethick;
+        public string Circlerow;
+        public string Circlecol;
+        public Thick()
+        {
+            InitializeComponent();
+        }
+
+        private void thickButton_Click(object sender, EventArgs e)
+        {
+            Circlethick = tbThick.Text;
+            Circlerow = tbRow.Text;
+            Circlecol = tbCol.Text;
+        }
+    }
+}
+
+```
