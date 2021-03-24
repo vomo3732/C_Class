@@ -237,7 +237,7 @@ private void tbSql_KeyDown(object sender, KeyEventArgs e)
             Runsql(sql);
 }
 ```
-수정된 사항이 있으면 dataGrid.Rows의 해당 부분의 tooltiptext가 '.'으로 나타나게 함
+수정된 사항이 있으면 dataGrid.Rows의 해당 부분의 tooltiptext가 '.'으로 나타나게 함\
 전체 cell을 검색해서 수정된 사항이 있으면(tooltiptext가 .이면) update에 필요한 변수 세팅 후 update문을 보관문자열로 작성한 뒤 동작 수행하게 함
 ```
  private void dataGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
