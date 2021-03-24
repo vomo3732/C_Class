@@ -169,7 +169,7 @@ select 문을 통해 값을 받아와 dataGrid 창에 변수명과 값 띄우기
 Header Text 를 getName 함수를 통해 추가하고 각 열들의 값들을 추가해줌
 ```
  int Runsql(string sql)
-        {
+ {
             try
             {
                 string s1 = sql.Trim();
@@ -222,12 +222,12 @@ Header Text 를 getName 함수를 통해 추가하고 각 열들의 값들을 �
                 sbPanel2.BackColor = Color.Red;
             }
             return 0;
-        }
+}
 ```
 엔터키가 입력되면 직전 줄의 동작수행하게 하기
 ```
 private void tbSql_KeyDown(object sender, KeyEventArgs e)
-        {
+{
             if (e.KeyCode != Keys.Enter) return;
 
             string str = tbSql.Text;
@@ -235,29 +235,35 @@ private void tbSql_KeyDown(object sender, KeyEventArgs e)
             int n = sArr.Length;
             string sql = sArr[n - 1].Trim();
             Runsql(sql);
-        }
+}
 ```
-전체 cell을 검색해서 수정된 사항이 있으면 update에 필요한 변수 세팅 후 update문을 보관문자열로 작성한 뒤 동작 수행하게 함
+수정된 사항이 있으면 dataGrid.Rows의 해당 부분의 tooltiptext가 '.'으로 나타나게 함
+전체 cell을 검색해서 수정된 사항이 있으면(tooltiptext가 .이면) update에 필요한 변수 세팅 후 update문을 보관문자열로 작성한 뒤 동작 수행하게 함
 ```
+ private void dataGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+ {
+      dataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText=".";
+      //MessageBox.Show(str);
+  }
 private void mnuUpdate_Click(object sender, EventArgs e)
+{
+    for(int i=0; i<dataGrid.Rows.Count; i++)
+    {
+        for(int j=0; j<dataGrid.Columns.Count; j++)
         {
-            for(int i=0; i<dataGrid.Rows.Count; i++)
+            string s = dataGrid.Rows[i].Cells[j].ToolTipText;
+            if (s == ".")   //update [Table] set [field] = [CellText] where [1st_Col_Name]=[ist_Col.CellText]
+                            //update [fStatus] set [temp]=(10)        where [id]=6
             {
-                for(int j=0; j<dataGrid.Columns.Count; j++)
-                {
-                    string s = dataGrid.Rows[i].Cells[j].ToolTipText;
-                    if (s == ".")   //update [Table] set [field] = [CellText] where [1st_Col_Name]=[ist_Col.CellText]
-                                    //update [fStatus] set [temp]=(10)        where [id]=6
-                    {
-                        string tn = TableName;
-                        string fn = dataGrid.Columns[j].HeaderText;
-                        string ct = (string)dataGrid.Rows[i].Cells[j].Value;
-                        string kn = dataGrid.Columns[0].HeaderText;
-                        string kt = (string)dataGrid.Rows[i].Cells[0].Value;
-                        string sql = $"update {tn} set {fn}= {ct} where {kn} ={kt}";
-                        Runsql(sql);
-                    }
-                }
+             string tn = TableName;
+             string fn = dataGrid.Columns[j].HeaderText;
+             string ct = (string)dataGrid.Rows[i].Cells[j].Value;
+             string kn = dataGrid.Columns[0].HeaderText;
+             string kt = (string)dataGrid.Rows[i].Cells[0].Value;
+             string sql = $"update {tn} set {fn}= {ct} where {kn} ={kt}";
+             Runsql(sql);
             }
         }
+    }
+}
 ```
