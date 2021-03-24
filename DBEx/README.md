@@ -163,3 +163,101 @@ namespace DBManager
 }
 
 ```
+
+#### 03/24
+select 문을 통해 값을 받아와 dataGrid 창에 변수명과 값 띄우기
+Header Text 를 getName 함수를 통해 추가하고 각 열들의 값들을 추가해줌
+```
+ int Runsql(string sql)
+        {
+            try
+            {
+                string s1 = sql.Trim();
+                sqlCmd.CommandText = sql;
+                if (GetToken(0, ' ', sql).ToUpper() == "SELECT")
+                {
+                    SqlDataReader sr = sqlCmd.ExecuteReader();
+                    TableName = GetToken(3, ' ', sql);
+                    dataGrid.Rows.Clear();
+                    dataGrid.Columns.Clear();
+                    for (int i = 0; i < sr.FieldCount; i++) //Header 처리
+                    {
+                        string ss = sr.GetName(i);
+                        dataGrid.Columns.Add(ss, ss);
+                    }
+                    for(int i=0; sr.Read(); i++)    //1 record read
+                    {
+                        int rldx = dataGrid.Rows.Add();
+                        for (int j=0; j<sr.FieldCount; j++)
+                        {
+                            object str = sr.GetValue(j);    //1 line 생성
+                            dataGrid.Rows[i].Cells[j].Value = str;
+                        }
+                    }
+                    sr.Close();
+                }
+                else
+                {
+                    sqlCmd.ExecuteNonQuery();
+                }
+
+                sqlCmd.CommandText = sql; //insert into fstatus values(1, 2, 3, 4)
+                sqlCmd.ExecuteNonQuery();  //select 문 제외- no return value
+
+                //sqlCmd.ExecuteReader();
+                sbPanel2.Text = "success";
+                sbPanel2.BackColor = Color.AliceBlue;
+            //update, insert, delete, create
+            }
+            catch (SqlException e1)
+            {
+                MessageBox.Show(e1.Message);
+                sbPanel2.Text = "error";
+                sbPanel2.BackColor = Color.Red;
+            }
+            catch(InvalidOperationException e2)
+            {
+                MessageBox.Show(e2.Message);
+                sbPanel2.Text = "error";
+                sbPanel2.BackColor = Color.Red;
+            }
+            return 0;
+        }
+```
+엔터키가 입력되면 직전 줄의 동작수행하게 하기
+```
+private void tbSql_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter) return;
+
+            string str = tbSql.Text;
+            string[] sArr = str.Split('\n');
+            int n = sArr.Length;
+            string sql = sArr[n - 1].Trim();
+            Runsql(sql);
+        }
+```
+전체 cell을 검색해서 수정된 사항이 있으면 update에 필요한 변수 세팅 후 update문을 보관문자열로 작성한 뒤 동작 수행하게 함
+```
+private void mnuUpdate_Click(object sender, EventArgs e)
+        {
+            for(int i=0; i<dataGrid.Rows.Count; i++)
+            {
+                for(int j=0; j<dataGrid.Columns.Count; j++)
+                {
+                    string s = dataGrid.Rows[i].Cells[j].ToolTipText;
+                    if (s == ".")   //update [Table] set [field] = [CellText] where [1st_Col_Name]=[ist_Col.CellText]
+                                    //update [fStatus] set [temp]=(10)        where [id]=6
+                    {
+                        string tn = TableName;
+                        string fn = dataGrid.Columns[j].HeaderText;
+                        string ct = (string)dataGrid.Rows[i].Cells[j].Value;
+                        string kn = dataGrid.Columns[0].HeaderText;
+                        string kt = (string)dataGrid.Rows[i].Cells[0].Value;
+                        string sql = $"update {tn} set {fn}= {ct} where {kn} ={kt}";
+                        Runsql(sql);
+                    }
+                }
+            }
+        }
+```
