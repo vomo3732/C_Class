@@ -267,3 +267,82 @@ private void mnuUpdate_Click(object sender, EventArgs e)
     }
 }
 ```
+
+#### 03/25
+dropdown 버튼이 눌렸을 때 해당 table 값 grid에 출력하게 하기
+```
+       private void sbButton1_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            string s = e.ClickedItem.Text;
+            string sql = $"select * from {s}";
+            sbButton1.Text = s;
+            Runsql(sql);
+        }
+```
+새로운 열 이름 입력받아서 해당 테이블에 추가하기
+ ```
+ private void mnuEditColumn_Click(object sender, EventArgs e)
+        {
+            //메뉴상에서 column 추가를 눌렀을 때!
+            //Form2라는 팝업창 하나 생성
+            Form2 dlg = new Form2("new column name");
+            DialogResult ret = dlg.ShowDialog();
+            if (ret == DialogResult.OK)
+            {
+                string nw = dlg.NewColumn;
+                dataGrid.Columns.Add(nw, nw);
+                //열 추가하기
+            }
+        }
+```
+database 닫는 창 만들기
+```
+ private void mnuDBClose_Click(object sender, EventArgs e)
+        {
+            sqlCon.Close();
+            sbPanel1.Text = "DB File Name";
+            sbPanel2.Text = $" DB closed";
+            sbPanel1.BackColor = Color.Gray;
+
+
+            sbButton1.DropDownItems.Clear();
+        }
+```
+신규 테이블명 입력받아서 그 이름으로 테이블을 생성하고 해당 속성들을 신규 테이블에 모두 대입하기
+```
+//create table [tablename]{
+        // [column1] nchar(20),
+        // [column2] nchar(20),
+        // [column3] nchar(20),
+        // ...
+        //)
+
+        private void mnuNewTable_Click(object sender, EventArgs e)
+        {
+            Form2 dlg = new Form2("신규 테이블명");
+            if (dlg.ShowDialog() != DialogResult.OK) return;
+            string tableName = dlg.NewColumn;
+            string sql = $"Create table {tableName} (";
+            for(int i=0; i<dataGrid.ColumnCount; i++)
+            {
+                sql += $"{dataGrid.Columns[i].HeaderText} nchar(20)";
+                if (i < dataGrid.ColumnCount - 1) sql += ",";
+            }
+            sql += ")";
+            Runsql(sql);//신규 테이블 생성 완료
+            //insert into [tablename] values (
+            // [col_val_1], [col_val_2], ...
+            // )
+            for(int i=0; i<dataGrid.RowCount; i++)
+            {
+                sql = $"insert into {tableName} values (";
+
+                for(int j=0; j<dataGrid.Columns.Count; j++)
+                {
+                    sql += $"'{dataGrid.Rows[i].Cells[j].Value}";
+                    if (i < dataGrid.ColumnCount - 1) sql += ","; ;
+                }
+                sql += ")";
+                Runsql(sql);
+            }
+```
