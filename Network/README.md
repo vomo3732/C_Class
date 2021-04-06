@@ -1,6 +1,6 @@
 #### 04/06
 
-통신을 위한 프로토타입을 만들어서 시험해보았다. IP 주소와 Port 번호를 이용해 client에서 입력한 값을 server에 출력시켜주었다.\n
+통신을 위한 프로토타입을 만들어서 시험해보았다. IP 주소와 Port 번호를 이용해 client에서 입력한 값을 server에 출력시켜주었다.
 FormServer.cs
 ```
 using System;
