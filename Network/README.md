@@ -541,3 +541,19 @@ namespace ChatSocket
     }
 }
 ```
+#### 05/03 
+Encrypt 함수를 이용한 암호화에 대해 배웠다. 해당 함수에서 제대로 동작하지 않는 부분이 있는데 내일 해결해보기로 했다!
+```
+string GetEncrypt(string str)
+        {
+            MD5 md = new MD5CryptoServiceProvider();
+            byte[] bArr = md.ComputeHash(Encoding.Default.GetBytes(str));
+            string sRet = "";
+            for (int i = 0; i < bArr.Length; i++)
+            {
+                sRet += $"{bArr[i]:x2}";
+            }
+            return sRet;
+        }
+```
+
