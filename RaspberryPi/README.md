@@ -1,6 +1,5 @@
-##raspberry pi get token 구현하기
+### raspberry pi get token 구현하기
 ```
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
@@ -114,3 +113,4 @@ int chrCount(char *str, char chr){
 //}
 
 ```
+C#에서는 쉽게 구현할 수 있었던 Split 함수를 직접 C언어를 이용해 하나하나 구현해 보았습니다. 
