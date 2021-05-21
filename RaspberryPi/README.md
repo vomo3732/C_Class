@@ -115,3 +115,43 @@ int chrCount(char *str, char chr){
 ```
 C#에서는 쉽게 구현할 수 있었던 Split 함수를 직접 C언어를 이용해 하나하나 구현해 보았습니다. 
 char ** 으로 메모리 주소 자체를 수정하면서 숫자와 콤마로 구성된 문자열을 ss라는 문자열에 콤마를 제거한 뒤 대입하고 get Token 함수를 통해 진행합니다. 
+
+### 초음파 센서(HC-SR04)를 이용한 거리 측정하기
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <wiringPi.h>
+
+int main()
+{
+	int wTrig=25;
+	int wEcho=24;
+	wiringPiSetup();
+	pinMode(wTrig, OUTPUT);	//측정 신호 발사
+	pinMode(wEcho, INPUT);	//반사 신호 검출
+	while(1)
+	{
+		digitalWrite(wTrig, LOW); //트리거 신호를 위한 초기화
+		delayMicroseconds(100);
+		
+		
+		digitalWrite(wTrig, HIGH);
+		delayMicroseconds(10);	//10us 의 트리거 신호
+		digitalWrite(wTrig, LOW);
+		delayMicroseconds(200);	//실제 신호발사까지 지연시간
+		
+		while(digitalRead(wEcho)==LOW);	//until high
+		long start=micros(); 	//현재 시간의 마이크로초 단위 카운트
+		while(digitalRead(wEcho)==HIGH);	//until low
+		long end=micros();
+		
+		double dist=(end-start)*0.17;
+		printf("Distance: %f\n",dist);
+		delay(1000);
+	}
+	
+}
+
+```
+초음파 센서의 특징인 trig와 echo를 이용했다. 발신부에서 보낸 신호가 반사되어 수신부에 돌아오는 시간을 토대로 거리를 측정했다. 음속이 340m/s인 점을 이용해서 1mm를 이동하는데 0.29us의 시간이 소요되는 것을 알 수 있다. 따라서, 음파의 이동거리= 왕복시간/1mm이동시간/2인 것을 알 수 있다! 따라서 거리를 구할때 double dist=(end-start)*0.17 (1mm 이동시간/2) 로 구해주었다
