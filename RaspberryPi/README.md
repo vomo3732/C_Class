@@ -155,3 +155,46 @@ int main()
 
 ```
 초음파 센서의 특징인 trig와 echo를 이용했다. 발신부에서 보낸 신호가 반사되어 수신부에 돌아오는 시간을 토대로 거리를 측정했다. 음속이 340m/s인 점을 이용해서 1mm를 이동하는데 0.29us의 시간이 소요되는 것을 알 수 있다. 따라서, 음파의 이동거리= 왕복시간/1mm이동시간/2인 것을 알 수 있다! 따라서 거리를 구할때 double dist=(end-start)*0.17 (1mm 이동시간/2) 로 구해주었다
+
+### 자이로 센서를 이용해 x1, y1, z1, x2, y2, z2값 구하기
+```
+#include <stdio.h>
+#include <wiringPi.h>
+#include <wiringPiI2C.h>
+
+short i2cInt16(int hndl, int addr);
+
+int main()
+{
+	int i2cAddr=0x68;
+	int bufAddr=0x3b;// memory block
+	int pwrAddr=0x6b;
+	
+	wiringPiSetup();
+	int hndl = wiringPiI2CSetup(i2cAddr);
+	
+	wiringPiI2CWriteReg8(hndl, pwrAddr, 0);
+	double x1, x2, y1, y2, z1, z2;
+	while(1){
+		x1=i2cInt16(hndl, bufAddr)/16384.;
+		
+		y1=i2cInt16(hndl, bufAddr+2)/16384.;
+		z1=i2cInt16(hndl, bufAddr+4)/16384.;
+		x2=i2cInt16(hndl, bufAddr+8)/131.;
+		y2=i2cInt16(hndl, bufAddr+10)/131.;
+		z2=i2cInt16(hndl, bufAddr+12)/131.;
+		
+		printf("x1= %f  y1=%f  z1=%f  x2=%f  y2=%f  z2=%f \n",x1,y1,z1,x2,y2,z2);
+	}
+	
+	
+}
+
+short i2cInt16(int hndl, int addr)
+{
+	short d1=wiringPiI2CReadReg8(hndl, addr);
+	short d2=wiringPiI2CReadReg8(hndl, addr+1);
+	short d3=(d1 << 8) | d2;
+}
+
+```
