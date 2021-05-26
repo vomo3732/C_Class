@@ -198,3 +198,105 @@ short i2cInt16(int hndl, int addr)
 }
 
 ```
+### 쌍방 통신 구현하기
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <wiringPi.h>
+#include <wiringPiI2C.h>
+#include <pthread.h>
+
+short i2cInt16(int hndl, int addr);
+void * readProc();
+
+char *IP="192.168.0.68";
+int PORT=9001;
+int sock;
+
+int main()
+{
+	int i2cAddr=0x68;
+	int bufAddr=0x3b;// memory block
+	int pwrAddr=0x6b;
+	
+	pthread_t readThread;
+	
+	wiringPiSetup();
+	int hndl = wiringPiI2CSetup(i2cAddr);
+	
+	wiringPiI2CWriteReg8(hndl, pwrAddr, 0);
+	double x1, x2, y1, y2, z1, z2;
+	int i, j, k;
+	//int sock; //socket handle
+	struct sockaddr_in sockinfo;
+	char buf[1024];
+	
+	sock=socket(AF_INET, SOCK_STREAM, 0);
+	sockinfo.sin_family=AF_INET;
+	inet_pton(AF_INET, IP, &sockinfo.sin_addr.s_addr);
+	sockinfo.sin_port=htons(PORT);
+	
+	connect(sock, (struct sockaddr*)&sockinfo, sizeof(sockinfo));
+	k = fcntl(sock, F_SETFL, 0);
+	fcntl(sock, F_SETFL, k | FNONBLOCK);
+	pthread_create(&readThread, NULL, readProc, NULL);
+	
+	while(1){
+		
+		//x1=i2cInt16(hndl, bufAddr)/16384.;
+		
+		//y1=i2cInt16(hndl, bufAddr+2)/16384.;
+		//z1=i2cInt16(hndl, bufAddr+4)/16384.;
+		//x2=i2cInt16(hndl, bufAddr+8)/131.;
+		//y2=i2cInt16(hndl, bufAddr+10)/131.;
+		//z2=i2cInt16(hndl, bufAddr+12)/131.;
+		scanf("%s",buf);
+		if(buf[0]=='q') break;
+		//buf[0]=
+		//sprintf(buf, " %f ", x1);    // %f를 지정하여 실수를 문자열로 저장
+		//sprintf(buf, " %f ", y1); 
+		send(sock, buf, strlen(buf), 0);
+		//i= recv(sock, buf, 1024, 0);
+		//if(i>0) buf[i]=0;
+		//if(buf[0]=='q') break;
+ 		//printf("%s\n", buf);
+ 		//delay(100);
+	}
+	close(sock);
+	pthread_join(readThread, NULL);
+	
+}
+
+void * readProc(){
+	int i;
+	char buf[1024];;
+	while(1)
+	{
+		i=recv(sock, buf, 1024, 0);
+		if(i>0)
+		{
+			buf[i]=0;
+			printf("%s\n",buf);
+		}	 
+		delay(500);
+	}
+	return NULL;
+	
+}
+
+
+short i2cInt16(int hndl, int addr)
+{
+	short d1=wiringPiI2CReadReg8(hndl, addr);
+	short d2=wiringPiI2CReadReg8(hndl, addr+1);
+	short d3=(d1 << 8) | d2;
+}
+
+
+```
+
